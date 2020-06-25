@@ -1,6 +1,7 @@
 package com.example.flixster;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,10 +20,16 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
     List<Movie> movies;
     Context context;
+    OnClickListener ocl;
 
-    public MovieAdapter(Context context, List<Movie> movies) {
+    public interface OnClickListener{
+        public void OnClick(Movie movie);
+    }
+
+    public MovieAdapter(Context context, List<Movie> movies, OnClickListener ocl) {
         this.movies = movies;
         this.context = context;
+        this.ocl = ocl;
     }
 
     @NonNull
@@ -54,8 +61,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             overview = itemView.findViewById(R.id.overview);
             poster = itemView.findViewById(R.id.poster);
         }
-        public void bind(Movie movie){
+        public void bind(final Movie movie){
             title.setText(movie.getTitle());
+
+            title.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ocl.OnClick(movie);
+                }
+            });
             overview.setText(movie.getOverview());
             String img = movie.getPoster_path();
             if(context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)

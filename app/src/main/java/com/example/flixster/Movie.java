@@ -12,11 +12,15 @@ public class Movie{
     String backdrop_path;
     String title;
     String overview;
+    float rating;
+    String release_date;
     public Movie(JSONObject obj) throws JSONException {
         poster_path = obj.getString("poster_path");
         title = obj.getString("title");
         overview = obj.getString("overview");
         backdrop_path = obj.getString("backdrop_path");
+        rating = ((float)obj.getInt("vote_average")) * 5 / 10;
+        release_date = obj.getString("release_date");
     }
     public static List<Movie> fromJsonArray(JSONArray arr){
         List<Movie> movies = new ArrayList<>();
@@ -44,5 +48,13 @@ public class Movie{
 
     public String getOverview() {
         return overview;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public String getRelease_date() {
+        return release_date;
     }
 }

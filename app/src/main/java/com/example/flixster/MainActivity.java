@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
@@ -32,7 +33,17 @@ public class MainActivity extends AppCompatActivity {
 
         rvMovies = findViewById(R.id.main_rv);
         movies = new ArrayList<>();
-        final MovieAdapter mvAdapter = new MovieAdapter(getApplicationContext(), movies);
+        final MovieAdapter mvAdapter = new MovieAdapter(getApplicationContext(), movies, new MovieAdapter.OnClickListener() {
+            @Override
+            public void OnClick(Movie movie) {
+                Intent i = new Intent(MainActivity.this, InfoActivity.class);
+                i.putExtra("title", movie.getTitle());
+                i.putExtra("release_date", movie.getRelease_date());
+                i.putExtra("rating", movie.getRating());
+                i.putExtra("overview", movie.getOverview());
+                startActivity(i);
+            }
+        });
         rvMovies.setAdapter(mvAdapter);
         rvMovies.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         AsyncHttpClient client = new AsyncHttpClient();

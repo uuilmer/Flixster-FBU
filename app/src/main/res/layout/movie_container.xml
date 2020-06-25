@@ -30,11 +30,11 @@
 
     <TextView
         android:id="@+id/overview"
-        android:layout_width="282dp"
-        android:layout_height="wrap_content"
+        android:layout_width="311dp"
+        android:layout_height="63dp"
         android:layout_below="@+id/title"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="1dp"
+        android:layout_marginStart="0dp"
         android:layout_marginTop="1dp"
         android:layout_marginEnd="0dp"
         android:layout_toEndOf="@+id/poster"
