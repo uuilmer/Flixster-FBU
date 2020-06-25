@@ -9,13 +9,14 @@ import java.util.List;
 
 public class Movie{
     String poster_path;
+    String backdrop_path;
     String title;
     String overview;
     public Movie(JSONObject obj) throws JSONException {
         poster_path = obj.getString("poster_path");
         title = obj.getString("title");
         overview = obj.getString("overview");
-
+        backdrop_path = obj.getString("backdrop_path");
     }
     public static List<Movie> fromJsonArray(JSONArray arr){
         List<Movie> movies = new ArrayList<>();
@@ -27,6 +28,10 @@ public class Movie{
             }
         }
         return movies;
+    }
+
+    public String getBackdrop_path(){
+        return String.format("https://image.tmdb.org/t/p/w342/%s", backdrop_path);
     }
 
     public String getPoster_path() {
