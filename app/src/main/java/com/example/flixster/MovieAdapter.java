@@ -16,6 +16,9 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
+
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
 
     List<Movie> movies;
@@ -54,17 +57,25 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         TextView title;
         TextView overview;
         ImageView poster;
+        TextView date;
+        TextView adult;
+        View item;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            item = itemView;
             title = itemView.findViewById(R.id.title);
             overview = itemView.findViewById(R.id.overview);
             poster = itemView.findViewById(R.id.poster);
+            date = itemView.findViewById(R.id.date);
+            adult = itemView.findViewById(R.id.adult);
         }
         public void bind(final Movie movie){
             title.setText(movie.getTitle());
+            date.setText(movie.getRelease_date());
+            adult.setText(movie.isAdult() ? "@adult" : "@family");
 
-            title.setOnClickListener(new View.OnClickListener() {
+            item.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     ocl.OnClick(movie);
@@ -74,7 +85,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             String img = movie.getPoster_path();
             if(context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
                 img = movie.getBackdrop_path();
-            Glide.with(context).load(img).into(poster);
+            int radius = 40;
+            int margin = 5;
+            Glide.with(context)
+                    .load(img)
+                    .transform(new RoundedCornersTransformation(radius, margin))
+                    .into(poster);
         }
     }
 }
