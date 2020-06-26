@@ -37,7 +37,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-The Binding was a bit weird and I wasn't used to multiple-threads, but it all worked out.
+The Binding was a bit weird and I wasn't used to multiple-threads, but it all worked out after some reading.
 
 ## Open-source libraries used
 
